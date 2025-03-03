@@ -1,5 +1,5 @@
-SLOT_WIDTH = 70
-SLOT_HEIGHT = 100
+SLOT_WIDTH = 100
+SLOT_HEIGHT = 130
 
 import flet as ft
 
