@@ -160,14 +160,16 @@ class Solitaire(ft.Stack):
         self.controls.extend(self.tableau)
 
         undo_button = ft.ElevatedButton("Undo", on_click=lambda _: self.undo_move())
-
         undo_container = ft.Container(
             content=undo_button,
             top=SOLITAIRE_HEIGHT - 500,
             left=SOLITAIRE_WIDTH - 200,
         )
-
         self.controls.append(undo_container)
+
+        restart_button = ft.ElevatedButton("Restart", on_click=lambda _: self.restart_game())
+        restart_container = ft.Container(content=restart_button, top=SOLITAIRE_HEIGHT - 450, left=SOLITAIRE_WIDTH - 200)
+        self.controls.append(restart_container)
         self.update()
 
     def deal_cards(self):
@@ -234,6 +236,8 @@ class Solitaire(ft.Stack):
         return False
 
     def winning_sequence(self):
+        """Exibe a animação de vitória e permite reiniciar o jogo."""
+        # Animar as cartas para mostrar que o jogo foi vencido
         for slot in self.foundations:
             for card in slot.pile:
                 card.animate_position = 2000
@@ -241,6 +245,54 @@ class Solitaire(ft.Stack):
                 card.top = random.randint(0, SOLITAIRE_HEIGHT)
                 card.left = random.randint(0, SOLITAIRE_WIDTH)
                 self.update()
+
+        # Mostrar o diálogo de vitória
         self.controls.append(
-            ft.AlertDialog(title=ft.Text("Congratulations! You won!"), open=True)
+            ft.AlertDialog(
+                title=ft.Text("Congratulations, you won!"),
+                actions=[
+                    ft.TextButton("Play Again", on_click=lambda _: self.restart_game())
+                ],
+                open=True
+            )
         )
+
+        # Atualizar a interface
+        self.update()
+
+    def restart_game(self):
+        """Reinicia o jogo, limpando o estado e embaralhando as cartas novamente."""
+        # Limpar histórico de jogadas
+        self.history = []
+
+        # Limpar as pilhas de cartas
+        self.stock.pile.clear()
+        self.waste.pile.clear()
+        for foundation in self.foundations:
+            foundation.pile.clear()
+        for tableau_slot in self.tableau:
+            tableau_slot.pile.clear()
+
+        # Remover as cartas da interface (se ainda estiverem visíveis)
+        self.controls = [self.stock, self.waste]  # Manter apenas os controles principais
+        self.controls.extend(self.foundations)
+        self.controls.extend(self.tableau)
+
+        # Remover as cartas anteriores
+        self.controls = [control for control in self.controls if not isinstance(control, Card)]
+
+        # Criar e embaralhar o baralho novamente
+        self.create_card_deck()
+        random.shuffle(self.cards)
+
+        # Recriar os slots
+        self.create_slots()
+
+        # Distribuir as cartas novamente
+        self.deal_cards()
+
+        # Atualizar a interface
+        self.update()
+
+        print("🔄 Jogo reiniciado!")
+
