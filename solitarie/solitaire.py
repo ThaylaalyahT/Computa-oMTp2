@@ -8,6 +8,7 @@ from card import Card
 from slot import Slot
 
 
+
 class Suite:
     def __init__(self, suite_name, suite_color):
         self.name = suite_name
@@ -26,11 +27,84 @@ class Solitaire(ft.Stack):
         self.controls = []
         self.width = SOLITAIRE_WIDTH
         self.height = SOLITAIRE_HEIGHT
+        self.history = []
 
     def did_mount(self):
         self.create_card_deck()
         self.create_slots()
         self.deal_cards()
+
+    def move_card(self, card, from_slot, target_slot):
+        """Move uma carta e armazena o estado anterior diretamente."""
+        # Identificar se o movimento é do Stock para o Waste
+        is_stock_to_waste = from_slot == self.stock and target_slot == self.waste
+
+        # Encontrar a carta que estava embaixo antes do movimento
+        card_below = from_slot.pile[-2] if len(from_slot.pile) > 1 else None
+        card_below_was_face_up = card_below.face_up if card_below else None
+
+        # Salvar estado antes da jogada
+        self.history.append({
+            "card": card,
+            "from_slot": from_slot,
+            "to_slot": target_slot,  # Certifique-se de que 'to_slot' está sendo armazenado corretamente
+            "card_top": card.top,
+            "card_left": card.left,
+            "face_up": card.face_up,
+            "card_below": card_below,
+            "card_below_was_face_up": card_below_was_face_up,
+            "is_stock_to_waste": is_stock_to_waste  # Flag indicando esse tipo de movimento
+        })
+
+        # Mover a carta
+        card.place(target_slot)
+
+        # Se havia uma carta abaixo, ela deve virar para cima
+        if card_below:
+            card_below.turn_face_up()
+
+        print(f"Movido {card.rank.name} de {card.suite.name} de {from_slot} para {target_slot}.")
+
+        self.update()
+
+    def undo_move(self):
+        """Desfaz a última jogada, incluindo movimentos do Stock para o Waste."""
+        if not self.history:
+            print("🚫 Nenhum movimento para desfazer.")
+            return
+
+        last_move = self.history.pop()
+
+        card = last_move["card"]
+        from_slot = last_move["from_slot"]
+        to_slot = last_move["to_slot"]  # Agora, to_slot deve estar corretamente registrado
+        card_below = last_move.get("card_below")
+        card_below_was_face_up = last_move.get("card_below_was_face_up")
+        is_stock_to_waste = last_move["is_stock_to_waste"]
+
+        if is_stock_to_waste:
+            # Voltar a carta para o Stock
+            card.turn_face_down()  # Virar a carta de volta para baixo
+            card.move_on_top()  # Garantir que ela volte para o topo
+            card.place(self.stock)  # Colocar a carta de volta no Stock
+            print(f"🔄 Desfeito: {card.rank.name} de {card.suite.name} voltou para o Stock.")
+        else:
+            # Restaurar a posição e a face da carta
+            card.top = last_move["card_top"]
+            card.left = last_move["card_left"]
+            card.face_up = last_move["face_up"]
+            card.place(from_slot)
+
+            # Se a carta abaixo existir e estava virada para cima, virá-la para baixo
+            if card_below and not card_below_was_face_up:
+                card_below.turn_face_down()
+
+            print(f"🔄 Desfeito: {card.rank.name} de {card.suite.name} voltou para {from_slot}.")
+
+        if not self.history:
+            print("🛑 Nenhum outro movimento pode ser desfeito.")
+
+        self.update()
 
     def create_card_deck(self):
         suites = [
@@ -67,13 +141,12 @@ class Solitaire(ft.Stack):
         self.waste = Slot(solitaire=self, top=0, left=100, border=None)
 
         self.foundations = []
-        x = 235
-
+        x = 300
         for i in range(4):
             self.foundations.append(
                 Slot(solitaire=self, top=0, left=x, border=ft.border.all(1, "outline"))
             )
-            x += 120
+            x += 100
 
         self.tableau = []
         x = 0
@@ -85,6 +158,16 @@ class Solitaire(ft.Stack):
         self.controls.append(self.waste)
         self.controls.extend(self.foundations)
         self.controls.extend(self.tableau)
+
+        undo_button = ft.ElevatedButton("Undo", on_click=lambda _: self.undo_move())
+
+        undo_container = ft.Container(
+            content=undo_button,
+            top=SOLITAIRE_HEIGHT - 500,
+            left=SOLITAIRE_WIDTH - 200,
+        )
+
+        self.controls.append(undo_container)
         self.update()
 
     def deal_cards(self):
