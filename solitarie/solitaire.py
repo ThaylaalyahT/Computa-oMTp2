@@ -1,4 +1,5 @@
 import json
+#teste
 
 SOLITAIRE_WIDTH = 1000
 SOLITAIRE_HEIGHT = 500
