@@ -20,6 +20,18 @@ class Slot(ft.Container):
         if len(self.pile) > 0:
             return self.pile[-1]
 
+    def add_card(self, card):
+        """Adiciona uma carta ao slot."""
+        self.pile.append(card)
+
+    def remove_card(self, card):
+        """Remove uma carta do slot."""
+        if card in self.pile:
+            self.pile.remove(card)
+
     def click(self, e):
         if self == self.solitaire.stock:
             self.solitaire.restart_stock()
+
+    def __repr__(self):
+        return f"Slot({self.top}, {self.left})"

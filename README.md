@@ -1,1 +1,3 @@
-# Computa-oMTp2
+# Funcionalidades 
+## Sistema de pontos 
+## Sistema de dicas 

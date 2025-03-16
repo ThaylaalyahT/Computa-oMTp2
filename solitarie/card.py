@@ -27,9 +27,15 @@ class Card(ft.GestureDetector):
             width=CARD_WIDTH,
             height=CARD_HEIGHT,
             border_radius=ft.border_radius.all(6),
-            content=ft.Image(src="/images/card_back.png"),
+            content=ft.Image(src=self.get_card_image_src()),  # Use get_card_image_src
         )
         self.draggable_pile = [self]
+
+    def get_card_image_src(self):
+        if self.face_up:
+            return f"images/{self.suite.name}_{self.rank.name}.svg"  # Retorna .svg para cartas viradas para cima
+        else:
+            return self.solitaire.card_back_image  # Retorna .png para cartas viradas para baixo
 
     def turn_face_up(self):
         """Reveals card"""
@@ -40,12 +46,11 @@ class Card(ft.GestureDetector):
     def turn_face_down(self):
         """Hides card"""
         self.face_up = False
-        self.content.content.src = "/images/card_back.png"
+        self.content.content.src = self.get_card_image_src()
         self.solitaire.update()
 
     def move_on_top(self):
         """Brings draggable card pile to the top of the stack"""
-
         for card in self.draggable_pile:
             self.solitaire.controls.remove(card)
             self.solitaire.controls.append(card)
@@ -62,23 +67,28 @@ class Card(ft.GestureDetector):
         self.solitaire.update()
 
     def place(self, slot):
-        """Place draggable pile to the slot"""
+        """Coloca a carta ou pilha arrastável no slot."""
 
-        for card in self.draggable_pile:
+        if hasattr(self, 'draggable_pile') and self.draggable_pile:  # Verifica se é uma pilha arrastável
+            cards_to_place = self.draggable_pile
+        else:  # Caso contrário, é uma carta individual
+            cards_to_place = [self]  # Coloca a própria carta em uma lista para iterar
+
+        for card in cards_to_place:
             if slot in self.solitaire.tableau:
                 card.top = slot.top + len(slot.pile) * CARD_OFFSET
             else:
                 card.top = slot.top
             card.left = slot.left
 
-            # remove card from it's original slot, if exists
+            # Remove a carta do slot original, se existir
             if card.slot is not None:
                 card.slot.pile.remove(card)
 
-            # change card's slot to a new slot
+            # Define o slot da carta para o novo slot
             card.slot = slot
 
-            # add card to the new slot's pile
+            # Adiciona a carta à pilha do novo slot
             slot.pile.append(card)
 
         if self.solitaire.check_win():
