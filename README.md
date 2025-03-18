@@ -48,17 +48,10 @@ move uma carta, dentro das regras de jogo.
 - Se não houver nenhuma jogada possível no tableau para mover, a dica será olhar as cartas dentro do stock. 
 - Se o jogador apertar o botão de dicas em todas as cartas do stock e também não existir nenhuma jogada no tableau, 
 é mostrado uma mensagem que não é possível continuar com o jogo e se o jogador deseja iniciar um novo jogo. 
-
-
-## Notas 
-
-O sistema de pontuação também pode estar interligado com o sistema dicas uma vez que ao terminar o jogo a quantidade de dicas 
+- O sistema de pontuação também pode estar interligado com o sistema dicas uma vez que ao terminar o jogo a quantidade de dicas 
 usadas podem diminuir a pontuação final. 
 
-talvez acrescentar no final disso tudo, no menu:
-- Melhor Pontuação 
-- Melhor tempo 
+  
 
-
-amanha
-- verificar a sobreposição do tempo ao carregar o último jogo 
+Consertar:
+- verificar a sobreposição do tempo ao carregar o último jogo
