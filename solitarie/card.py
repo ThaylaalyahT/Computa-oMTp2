@@ -1,5 +1,4 @@
 import flet as ft
-
 CARD_WIDTH = 70
 CARD_HEIGHT = 100
 DROP_PROXIMITY = 30
@@ -27,20 +26,20 @@ class Card(ft.GestureDetector):
             width=CARD_WIDTH,
             height=CARD_HEIGHT,
             border_radius=ft.border_radius.all(6),
-            content=ft.Image(src=self.get_card_image_src()),  # Use get_card_image_src
+            content=ft.Image(src=self.get_card_image_src()),  
         )
         self.draggable_pile = [self]
 
     def get_card_image_src(self):
         if self.face_up:
-            return f"images/{self.suite.name}_{self.rank.name}.svg"  # Retorna .svg para cartas viradas para cima
+            return f"{self.rank.name}_{self.suite.name}.png"  
         else:
-            return self.solitaire.card_back_image  # Retorna .png para cartas viradas para baixo
+            return self.solitaire.card_back_image 
 
     def turn_face_up(self):
         """Reveals card"""
         self.face_up = True
-        self.content.content.src = f"/images/{self.rank.name}_{self.suite.name}.svg"
+        self.content.content.src = f"{self.rank.name}_{self.suite.name}.png"
         self.solitaire.update()
 
     def turn_face_down(self):
@@ -48,6 +47,7 @@ class Card(ft.GestureDetector):
         self.face_up = False
         self.content.content.src = self.get_card_image_src()
         self.solitaire.update()
+        
 
     def move_on_top(self):
         """Brings draggable card pile to the top of the stack"""
@@ -69,10 +69,10 @@ class Card(ft.GestureDetector):
     def place(self, slot):
         """Coloca a carta ou pilha arrastável no slot."""
 
-        if hasattr(self, 'draggable_pile') and self.draggable_pile:  # Verifica se é uma pilha arrastável
+        if hasattr(self, 'draggable_pile') and self.draggable_pile:  
             cards_to_place = self.draggable_pile
-        else:  # Caso contrário, é uma carta individual
-            cards_to_place = [self]  # Coloca a própria carta em uma lista para iterar
+        else:  
+            cards_to_place = [self]  
 
         for card in cards_to_place:
             if slot in self.solitaire.tableau:
@@ -81,14 +81,14 @@ class Card(ft.GestureDetector):
                 card.top = slot.top
             card.left = slot.left
 
-            # Remove a carta do slot original, se existir
+            
             if card.slot is not None:
                 card.slot.pile.remove(card)
 
-            # Define o slot da carta para o novo slot
+            
             card.slot = slot
 
-            # Adiciona a carta à pilha do novo slot
+            
             slot.pile.append(card)
 
         if self.solitaire.check_win():
@@ -105,7 +105,7 @@ class Card(ft.GestureDetector):
             and self.slot != self.solitaire.waste
         ):
             self.draggable_pile = self.slot.pile[self.slot.pile.index(self) :]
-        else:  # slot == None when the cards are dealed and need to be place in slot for the first time
+        else:  
             self.draggable_pile = [self]
 
     def start_drag(self, e: ft.DragStartEvent):
@@ -147,29 +147,29 @@ class Card(ft.GestureDetector):
             self.bounce_back()
 
     def click(self, e):
-        from_slot = self.slot  # Guarda o slot de origem da carta
-        self.get_draggable_pile()  # Prepara a pilha de cartas para arraste
+        from_slot = self.slot  
+        self.get_draggable_pile()  
 
         if self.slot in self.solitaire.tableau:
-            # Se a carta no tableau não estiver virada para cima, virá-la
+            
             if not self.face_up and self == self.slot.get_top_card():
                 self.turn_face_up()
 
         elif self.slot == self.solitaire.stock:
-            # Antes de mover para o waste, virar a carta para baixo (se necessário)
+            
             if self.face_up:
-                self.turn_face_down()  # A carta é virada para baixo antes de ser movida
+                self.turn_face_down()  
 
-            self.move_on_top()  # Move a carta do stock para o topo da pilha
-            self.place(self.solitaire.waste)  # Coloca a carta no waste
-            self.turn_face_up()  # Vira a carta que foi movida para cima
+            self.move_on_top()  
+            self.place(self.solitaire.waste)  
+            self.turn_face_up()  
 
-            # Agora, viramos a próxima carta do stock para baixo (se houver uma carta no stock)
+            
             if self.solitaire.stock.pile:
-                next_card = self.solitaire.stock.pile[-1]  # Pegamos a carta do topo do stock
-                next_card.turn_face_down()  # Viramos a próxima carta do stock para baixo
+                next_card = self.solitaire.stock.pile[-1]  
+                next_card.turn_face_down()  
 
-            # Registra o movimento (se necessário para desfazer)
+            
             self.solitaire.move_card(self, from_slot, self.solitaire.waste)
 
     def doubleclick(self, e):

@@ -1,7 +1,3 @@
-
-SOLITAIRE_WIDTH = 1000
-SOLITAIRE_HEIGHT = 500
-
 import random
 import json
 import flet as ft
@@ -12,6 +8,8 @@ import time
 import threading
 
 
+SOLITAIRE_WIDTH = 1000
+SOLITAIRE_HEIGHT = 500
 class Suite:
     def __init__(self, suite_name, suite_color):
         self.name = suite_name
@@ -41,48 +39,49 @@ class Rank:
 class Solitaire(ft.Stack):
     def __init__(self):
         super().__init__()
-        self.tempo_decorrido = 0
+        self.tempo_decorrido = ''
         self.controls = []
         self.width = SOLITAIRE_WIDTH
         self.height = SOLITAIRE_HEIGHT
         self.history = []
-        self.card_back_image = "images/default_back.png"
-        self.SAVE_FILE = "solitaire_save.json"  # 🔹 Definindo como atributo da instância
+        self.card_back_image = "default_back.png"
+        self.SAVE_FILE = "solitaire_save.json"  
         self.pontuacao = 0
         self.tempo_inicial = None
         self.PONTOS_TABLEAU = 5
         self.PONTOS_FOUNDATION = 15
         self.PONTOS_STOCK_FOUNDATION = 10
         self.PONTOS_STOCK_TABLEAU = 5
-        self.pontuacao_text = None  # Adicionado o atributo pontuacao_text
-        self.tempo_text = None  # Adicionado o atributo tempo_text
-        self.timer_started = False  # Adiciona a flag para controlar o cronômetro
-        self.interface_pronta = False  # Adiciona a flag interface_pronta
-        self.dicas_usadas = 0  # Inicializa o contador de dicas
+        self.pontuacao_text = None  
+        self.tempo_text = None  
+        self.timer_started = False  
+        self.interface_pronta = False  
+        self.dicas_usadas = 0  
+        self.dicas_restantes = 5
 
+    options = ["Yellow flower.png", "Pink Flower.png", "Black Pattern.png", "Purple Pattern.png", "default_back.png"]
+    formatted_options = [opt.replace(".png", "") for opt in options]
 
     def did_mount(self):
         self.create_card_deck()
         self.create_slots()
         self.deal_cards()
 
-
-
     def change_card_back(self, image_name):
         """Atualiza o fundo das cartas e redesenha todas as cartas."""
         print("change_card_back chamado com:", image_name)
-        self.card_back_image = f"images/{image_name}"
+        self.card_back_image = f"{image_name}"
 
-        # Atualiza as cartas no estoque e no descarte
+        
         for card in self.stock.pile + self.waste.pile:
             card.content.content.src = card.get_card_image_src()
 
-        # Atualiza as cartas nas fundações
+        
         for foundation in self.foundations:
             for card in foundation.pile:
                 card.content.content.src = card.get_card_image_src()
 
-        # Atualiza as cartas no tableau
+        
         for tableau_slot in self.tableau:
             for card in tableau_slot.pile:
                 print("Atualizando carta do tableau:", card.rank.name, card.suite.name)
@@ -164,10 +163,10 @@ class Solitaire(ft.Stack):
         print(f"Foundations depois do movimento: {[f.pile for f in self.foundations]}")
         print(f"Tableau depois do movimento: {[f.pile for f in self.tableau]}")
 
-        self.pontuacao_text.value = f"Pontuação: {self.pontuacao}"  # Atualiza o valor do texto existente
+        self.pontuacao_text.value = f"Pontuação: {self.pontuacao}"  
         print(f"Texto de pontuação: {self.pontuacao_text.value}")
 
-        self.pontuacao_text.update()  # Atualiza o controle existente
+        self.pontuacao_text.update()  
         print("Texto de pontuação atualizado na tela.")
 
         if not self.timer_started:
@@ -269,12 +268,12 @@ class Solitaire(ft.Stack):
             self.tableau.append(Slot(solitaire=self, top=150, left=x, border=None))
             x += 100
 
-        # Adiciona os slots à lista de controles
+        
         self.controls.extend([self.stock, self.waste])
         self.controls.extend(self.foundations)
         self.controls.extend(self.tableau)
 
-        # Criação dos controles da interface
+        
         controls_config = [
             {
                 "type": "button",
@@ -311,8 +310,10 @@ class Solitaire(ft.Stack):
                 "type": "button",
                 "text": "Dica",
                 "on_click": lambda _: self.fornecer_dica(),
-                "top": SOLITAIRE_HEIGHT - 400,  # Ajuste a posição conforme necessário
+                "top": SOLITAIRE_HEIGHT - 400,  
                 "left": SOLITAIRE_WIDTH - 200,
+                "disabled": self.dicas_usadas == 5  
+
             },
         ]
 
@@ -347,7 +348,7 @@ class Solitaire(ft.Stack):
                                       left=SOLITAIRE_WIDTH - 200)
         self.controls.append(self.pontuacao_text)
 
-        self.tempo_text = ft.Text("Tempo: 00:00", top=SOLITAIRE_HEIGHT - 200, left=SOLITAIRE_WIDTH - 100)
+        self.tempo_text = ft.Text(self.tempo_decorrido, top=SOLITAIRE_HEIGHT - 200, left=SOLITAIRE_WIDTH - 100)
         self.controls.append(self.tempo_text)
 
         self.dicas_restantes_text = ft.Text(f"Dicas Restantes: {self.calcular_dicas_restantes()}",
@@ -432,10 +433,10 @@ class Solitaire(ft.Stack):
 
         tempo_decorrido = time.time() - self.tempo_inicial
         pontos_tempo = self.calcular_pontos_tempo(tempo_decorrido)
-        penalidade_dicas = self.calcular_penalidade_dicas()  # Calcula a penalidade das dicas
+        penalidade_dicas = self.calcular_penalidade_dicas()  
         pontuacao_final = self.pontuacao + pontos_tempo - penalidade_dicas
 
-        # Mostrar o diálogo de vitória com pontuação e tempo
+        
         dialog = ft.AlertDialog(
             title=ft.Text("Parabéns, você ganhou!"),
             content=ft.Text(
@@ -451,22 +452,22 @@ class Solitaire(ft.Stack):
         try:
             self.clear_game_state()
 
-            # Recriar o baralho e distribuir as cartas
+            
             self.create_card_deck()
             random.shuffle(self.cards)
             self.deal_cards()
 
-            # Redefinir pontuação e tempo
+            
             self.pontuacao = 0
             self.tempo_inicial = None
             self.timer_started = False
 
-            # Redefinir dicas
+            
             self.dicas_usadas = 0
             self.dicas_restantes_text.value = f"Dicas Restantes: {self.calcular_dicas_restantes()}"
             self.dicas_restantes_text.update()
 
-            # Atualizar texto de pontuação e tempo
+            
             self.pontuacao_text.value = f"Pontuação: {self.pontuacao}"
             self.pontuacao_text.update()
             self.tempo_text.value = "Tempo: 00:00"
@@ -480,20 +481,20 @@ class Solitaire(ft.Stack):
 
     def save_game_state(self, e):
         try:
-            # Calcular o tempo decorrido antes de salvar
+            
             tempo_decorrido = time.time() - self.tempo_inicial if self.tempo_inicial else 0
-
-            # Criar um dicionário com o estado atual do jogo
+        
+            
             game_state = {
                 "history": [],
                 "pontuacao": self.pontuacao,
                 "tempo_inicial": self.tempo_inicial,
                 "timer_started": self.timer_started,
                 "dicas_usadas": self.dicas_usadas,
-                "tempo": tempo_decorrido  # Salva o tempo decorrido em segundos
+                "tempo": tempo_decorrido  
             }
 
-            # Salvar o estado das cartas (tableau, foundations, stock e waste)
+            
             for tableau_slot in self.tableau:
                 for card in tableau_slot.pile:
                     move = {
@@ -548,7 +549,7 @@ class Solitaire(ft.Stack):
                 }
                 game_state["history"].append(move)
 
-            # Salvar o arquivo de estado
+            
             with open(self.SAVE_FILE, "w") as f:
                 json.dump(game_state, f, indent=4)
             print("✅ Estado do jogo salvo com sucesso.")
@@ -559,7 +560,7 @@ class Solitaire(ft.Stack):
     def load_game_state(self, e):
         try:
             if not os.path.exists(self.SAVE_FILE):
-                print("❌ Arquivo de salvamento não encontrado!")
+                print("❌ Ficheiro de jogo anterior não encontrado!")
                 return
 
             with open(self.SAVE_FILE, "r") as file:
@@ -567,17 +568,17 @@ class Solitaire(ft.Stack):
 
             print("✅ Jogo carregado:", game_state)
 
-            # Restaurar pontuação, tempo e dicas
+            
             self.pontuacao = game_state.get("pontuacao", 0)
             self.tempo_inicial = game_state.get("tempo_inicial")
             self.timer_started = game_state.get("timer_started", False)
             self.dicas_usadas = game_state.get("dicas_usadas", 0)
 
-            # Limpar o estado do jogo e recriar os slots
+            
             self.clear_game_state()
             self.create_slots()
 
-            # Recriar as cartas e colocá-las nos slots corretos
+            
             for move in game_state["history"]:
                 card_data = move["card"]
                 suite = Suite.from_dict(card_data["suite"])
@@ -616,7 +617,7 @@ class Solitaire(ft.Stack):
                     if card not in self.controls:
                         self.controls.append(card)
 
-            # Atualizar textos da interface
+            
             self.pontuacao_text.value = f"Pontuação: {self.pontuacao}"
             self.pontuacao_text.update()
 
@@ -640,7 +641,7 @@ class Solitaire(ft.Stack):
 
     def clear_game_state(self):
         """Limpa o estado atual do jogo, removendo todas as cartas e resets, mas preservando tempo e pontuação."""
-        # Resetar apenas os elementos do jogo, sem afetar o tempo e a pontuação
+        
         self.history = []
         self.stock.pile.clear()
         self.waste.pile.clear()
@@ -651,10 +652,10 @@ class Solitaire(ft.Stack):
         for tableau_slot in self.tableau:
             tableau_slot.pile.clear()
 
-        # Limpar os controles de cartas, mas manter os textos da interface
+        
         self.controls.clear()
 
-        # Recriar os slots e controles
+        
         self.create_slots()
         self.update()
 
@@ -673,13 +674,13 @@ class Solitaire(ft.Stack):
 
     def calcular_pontos_tempo(self, tempo_decorrido):
         """Calcula os pontos de tempo com base em limiares."""
-        if tempo_decorrido < 120:  # Menos de 2 minuto
+        if tempo_decorrido < 120:  
             return 500
-        elif tempo_decorrido < 180:  # Menos de 3 minutos
+        elif tempo_decorrido < 180:  
             return 300
-        elif tempo_decorrido < 240:  # Menos de 4 minutos
+        elif tempo_decorrido < 240:  
             return 100
-        else:  # Mais de 4 minutos
+        else:  
             return 50
 
     def atualizar_tempo_thread(self):
@@ -688,66 +689,69 @@ class Solitaire(ft.Stack):
             if self.interface_pronta:
                 tempo_decorrido = time.time() - self.tempo_inicial
                 tempo_formatado = self.formatar_tempo(tempo_decorrido)
-                self.tempo_text.value = f"Tempo: {tempo_formatado}"  # Substituição completa do texto
+                self.tempo_text.value = f"Tempo: {tempo_formatado}"  
                 self.tempo_text.update()
             time.sleep(1)
 
     def fornecer_dica(self):
         """Fornece uma dica ao jogador."""
         movimento_encontrado = False
+        print('dicas', self.dicas_restantes)
+        
 
-        # Verificar movimentos no tableau
+        
         for from_slot in self.tableau:
             if from_slot.pile:
                 card = from_slot.get_top_card()
                 for to_slot in self.tableau:
                     if from_slot != to_slot and self.check_tableau_rules(card, to_slot):
                         self.move_card(card, from_slot, to_slot)
-                        card.move_on_top()  # Coloca a carta no topo visualmente
+                        card.move_on_top()  
                         movimento_encontrado = True
-                        self.dicas_usadas += 1  # Incrementa o contador de dicas
-                        break  # Encontrou um movimento, sai do loop
+                        if self.dicas_restantes !=0:
+                            self.dicas_usadas += 1
+                        else: 
+                            break  
                 if not movimento_encontrado:
                     for to_slot in self.foundations:
                         if self.check_foundations_rules(card, to_slot):
                             self.move_card(card, from_slot, to_slot)
-                            card.move_on_top()  # Coloca a carta no topo visualmente
+                            card.move_on_top()  
                             movimento_encontrado = True
-                            self.dicas_usadas += 1  # Incrementa o contador de dicas
-                            break  # Encontrou um movimento, sai do loop
+                            self.calcular_dicas_restantes() 
+                            break  
             if movimento_encontrado:
-                break  # sai do loop externo
+                break  
 
         if movimento_encontrado:
             self.dicas_restantes_text.value = f"Dicas Restantes: {self.calcular_dicas_restantes()}"
             self.dicas_restantes_text.update()
-            return  # Movimento realizado no tableau
+            return  
 
-        # Verificar movimentos no estoque
+        
         if self.stock.pile:
             card = self.stock.get_top_card()
             card.turn_face_up()
             card.move_on_top()
             card.place(self.waste)
-            self.update()  # Atualiza a interface
+            self.update()  
             for to_slot in self.tableau:
                 if self.check_tableau_rules(card, to_slot):
                     self.move_card(card, self.waste, to_slot)
-                    card.move_on_top()  # Coloca a carta no topo visualmente
-                    self.dicas_usadas += 1  # Incrementa o contador de dicas
-                    return  # Movimento realizado do estoque
+                    card.move_on_top()  
+                    self.calcular_dicas_restantes()
+                    return  
             for to_slot in self.foundations:
                 if self.check_foundations_rules(card, to_slot):
                     self.move_card(card, self.waste, to_slot)
-                    card.move_on_top()  # Coloca a carta no topo visualmente
-                    self.dicas_usadas += 1  # Incrementa o contador de dicas
-                    return  # Movimento realizado do estoque
-            self.dicas_usadas += 1  # Incrementa o contador de dicas.
+                    card.move_on_top()
+                    self.calcular_dicas_restantes()
+                    return  
             self.dicas_restantes_text.value = f"Dicas Restantes: {self.calcular_dicas_restantes()}"
             self.dicas_restantes_text.update()
-            return  # Carta virada do estoque e colocada no descarte
+            return  
 
-        # Nenhum movimento encontrado
+        
         self.exibir_mensagem_fim_jogo()
 
     def exibir_mensagem_fim_jogo(self):
@@ -757,7 +761,7 @@ class Solitaire(ft.Stack):
             content=ft.Text("Não há mais movimentos possíveis. Deseja iniciar um novo jogo?"),
             actions=[
                 ft.TextButton("Sim", on_click=lambda _: self.restart_game()),
-                ft.TextButton("Não", on_click=lambda _: dialog.close()),  # usando dialog.close()
+                ft.TextButton("Não", on_click=lambda _: dialog.close()),  
             ],
             open=True,
         )
@@ -766,13 +770,19 @@ class Solitaire(ft.Stack):
 
     def calcular_dicas_restantes(self):
         """Calcula o número de dicas restantes."""
-        max_dicas = 5  # Defina o número máximo de dicas aqui
-        return max_dicas - self.dicas_usadas
+        max_dicas = 5  
+        self.dicas_restantes =  max_dicas - self.dicas_usadas
 
+        if self.dicas_restantes != 0:
+            return self.dicas_restantes
+        
+        else:
+            print("Não tem mais dicas")
+    
     def calcular_penalidade_dicas(self):
         """Calcula a penalidade total com base no número de dicas usadas."""
         penalidade_total = 0
-        penalidade_base = 10  # Penalidade inicial por dica
+        penalidade_base = 10  
         for i in range(self.dicas_usadas):
-            penalidade_total += penalidade_base * (i + 1)  # Diminui a penalidade por dica
+            penalidade_total += penalidade_base * (i + 1)  
         return int(penalidade_total)
