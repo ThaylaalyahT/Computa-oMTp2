@@ -1,7 +1,9 @@
+
+import flet as ft
+
 SLOT_WIDTH = 70
 SLOT_HEIGHT = 100
 
-import flet as ft
 
 class Slot(ft.Container):
     def __init__(self, solitaire, top, left, border):
@@ -21,11 +23,9 @@ class Slot(ft.Container):
             return self.pile[-1]
 
     def add_card(self, card):
-        """Adiciona uma carta ao slot."""
         self.pile.append(card)
 
     def remove_card(self, card):
-        """Remove uma carta do slot."""
         if card in self.pile:
             self.pile.remove(card)
 

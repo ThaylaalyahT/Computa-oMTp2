@@ -37,27 +37,23 @@ class Card(ft.GestureDetector):
             return self.solitaire.card_back_image 
 
     def turn_face_up(self):
-        """Reveals card"""
         self.face_up = True
         self.content.content.src = f"{self.rank.name}_{self.suite.name}.png"
         self.solitaire.update()
 
     def turn_face_down(self):
-        """Hides card"""
         self.face_up = False
         self.content.content.src = self.get_card_image_src()
         self.solitaire.update()
         
 
     def move_on_top(self):
-        """Brings draggable card pile to the top of the stack"""
         for card in self.draggable_pile:
             self.solitaire.controls.remove(card)
             self.solitaire.controls.append(card)
         self.solitaire.update()
 
     def bounce_back(self):
-        """Returns draggable pile to its original position"""
         for card in self.draggable_pile:
             if card.slot in self.solitaire.tableau:
                 card.top = card.slot.top + card.slot.pile.index(card) * CARD_OFFSET
@@ -67,7 +63,6 @@ class Card(ft.GestureDetector):
         self.solitaire.update()
 
     def place(self, slot):
-        """Coloca a carta ou pilha arrastável no slot."""
 
         if hasattr(self, 'draggable_pile') and self.draggable_pile:  
             cards_to_place = self.draggable_pile
@@ -97,7 +92,6 @@ class Card(ft.GestureDetector):
         self.solitaire.update()
 
     def get_draggable_pile(self):
-        """returns list of cards that will be dragged together, starting with the current card"""
 
         if (
             self.slot is not None

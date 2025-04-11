@@ -1,0 +1,841 @@
+{
+    "history": [
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Queen",
+                    "value": 12
+                },
+                "face_up": true,
+                "top": 150,
+                "left": 0
+            },
+            "from_slot": "tableau0"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "10",
+                    "value": 10
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 100
+            },
+            "from_slot": "tableau1"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "2",
+                    "value": 2
+                },
+                "face_up": true,
+                "top": 170,
+                "left": 100
+            },
+            "from_slot": "tableau1"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Ace",
+                    "value": 1
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 200
+            },
+            "from_slot": "tableau2"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "6",
+                    "value": 6
+                },
+                "face_up": true,
+                "top": 170,
+                "left": 200
+            },
+            "from_slot": "tableau2"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "4",
+                    "value": 4
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 300
+            },
+            "from_slot": "tableau3"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "9",
+                    "value": 9
+                },
+                "face_up": false,
+                "top": 170,
+                "left": 300
+            },
+            "from_slot": "tableau3"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "King",
+                    "value": 13
+                },
+                "face_up": false,
+                "top": 190,
+                "left": 300
+            },
+            "from_slot": "tableau3"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "5",
+                    "value": 5
+                },
+                "face_up": true,
+                "top": 210,
+                "left": 300
+            },
+            "from_slot": "tableau3"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "7",
+                    "value": 7
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "9",
+                    "value": 9
+                },
+                "face_up": false,
+                "top": 170,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "King",
+                    "value": 13
+                },
+                "face_up": false,
+                "top": 190,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "7",
+                    "value": 7
+                },
+                "face_up": false,
+                "top": 210,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "9",
+                    "value": 9
+                },
+                "face_up": true,
+                "top": 230,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "8",
+                    "value": 8
+                },
+                "face_up": true,
+                "top": 250,
+                "left": 400
+            },
+            "from_slot": "tableau4"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Jack",
+                    "value": 11
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "4",
+                    "value": 4
+                },
+                "face_up": false,
+                "top": 170,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "6",
+                    "value": 6
+                },
+                "face_up": false,
+                "top": 190,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Queen",
+                    "value": 12
+                },
+                "face_up": false,
+                "top": 210,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "3",
+                    "value": 3
+                },
+                "face_up": false,
+                "top": 230,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "7",
+                    "value": 7
+                },
+                "face_up": true,
+                "top": 250,
+                "left": 500
+            },
+            "from_slot": "tableau5"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "3",
+                    "value": 3
+                },
+                "face_up": false,
+                "top": 150,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Jack",
+                    "value": 11
+                },
+                "face_up": false,
+                "top": 170,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "7",
+                    "value": 7
+                },
+                "face_up": false,
+                "top": 190,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "4",
+                    "value": 4
+                },
+                "face_up": false,
+                "top": 210,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "4",
+                    "value": 4
+                },
+                "face_up": false,
+                "top": 230,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Ace",
+                    "value": 1
+                },
+                "face_up": false,
+                "top": 250,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "2",
+                    "value": 2
+                },
+                "face_up": true,
+                "top": 270,
+                "left": 600
+            },
+            "from_slot": "tableau6"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "8",
+                    "value": 8
+                },
+                "face_up": true,
+                "top": 0,
+                "left": 100
+            },
+            "from_slot": "waste"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "10",
+                    "value": 10
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "9",
+                    "value": 9
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Jack",
+                    "value": 11
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "6",
+                    "value": 6
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "5",
+                    "value": 5
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "10",
+                    "value": 10
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "8",
+                    "value": 8
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "10",
+                    "value": 10
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "5",
+                    "value": 5
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Queen",
+                    "value": 12
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Jack",
+                    "value": 11
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "2",
+                    "value": 2
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Queen",
+                    "value": 12
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "Ace",
+                    "value": 1
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "8",
+                    "value": 8
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "2",
+                    "value": 2
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "Ace",
+                    "value": 1
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "3",
+                    "value": 3
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "King",
+                    "value": 13
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "hearts",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "3",
+                    "value": 3
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "diamonds",
+                    "color": "RED"
+                },
+                "rank": {
+                    "name": "5",
+                    "value": 5
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "clubs",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "6",
+                    "value": 6
+                },
+                "face_up": true,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        },
+        {
+            "card": {
+                "suite": {
+                    "name": "spades",
+                    "color": "BLACK"
+                },
+                "rank": {
+                    "name": "King",
+                    "value": 13
+                },
+                "face_up": false,
+                "top": 0,
+                "left": 0
+            },
+            "from_slot": "stock"
+        }
+    ],
+    "pontuacao": 5,
+    "tempo_inicial": 1743375974.119188,
+    "timer_started": true,
+    "dicas_usadas": 1,
+    "tempo": 695.4818997383118
+}
